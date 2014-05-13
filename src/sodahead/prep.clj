@@ -12,10 +12,10 @@
 			(slurp content)
 			err-msg)))
 
-
+;#"%\{include\[ \n\t]"
 (defn get-included [original-text]
 	(loop 	[text original-text]
-		(if-let [includeToken 		(re-find #"%include\{[ \n\t]" text)]
+		(if-let [includeToken 		(re-find #"[%]{1}[\{]{1}include[\s]+" text)]
 			(let 	[include-pos 		(.indexOf text includeToken)
 					matching-sign-pos	(p/getClosingBrac text include-pos "{" "}")
 					text-length 		(count text)
@@ -24,7 +24,7 @@
 					(str 	(subs text 0 include-pos) 
 							missing-Err-Msg
 							(subs text include-pos text-length))
-					(let 	[file-list-start 	(inc include-pos (count "%include"))
+					(let 	[file-list-start 	(+ include-pos (count "%{include"))
 							file-list-string 	(.trim (subs text file-list-start matching-sign-pos))
 							file-names 			(.split file-list-string "[ \n\t]+")
 							files-content-vector		(map get-file-content file-names)
@@ -45,13 +45,13 @@
 			(= type "var")
 			(let [variable (subs data 1 data-length)]
 				(str " (try (load-string \"" variable 
-					"\")  (catch Exception e (str \"" variable "\"))\n\n "))
+					"\")  (catch Exception e (str \"" data "\"))\n\n "))
 
 			(= type "func")
 			(str " " (subs data 1 data-length) " \n\n ")
 
 			(= type "bloc")
-			(let 	[code 	(subs data 2 (- data-length 1))]
+			(let 	[code 	(subs data 2 (dec data-length))]
 				(str " (do " code ") \n\n ")))))
 
 (defn get-def-str 

@@ -36,7 +36,7 @@
 				text))))
 
 (defn getClosingBrac 
-	"get the position of the closing bracket/parenthesis e.x (getClosingBrac (slurp \"index.html\") 0 "{" "}")
+	"get the position of the closing bracket/parenthesis
 	that matches brac (assuming they're not the same)
 	if there's none, return -1. watch out for strings"
 	[text-to-search start-pos brac close-brac]
@@ -86,7 +86,7 @@
 			close-brac 	"}"] 
 		(loop 	[text 	original-text
 			 	res 	[]]
-			(if-let [token	(re-find #"%[\(\{a-zA-Z\_\-\!\$\%\&\*\?\|][^ \t\n\(\)\{\}\[\]\@\\\~\`\,\.\"\<\>]*"  ;"
+			(if-let [token	(re-find #"%[\(\{a-zA-Z\_\-\!\$\%\&\*\?\|][^ \s\(\)\{\}\[\]\@\\\~\`\,\.\"\<\>]*"  ;"
 										text)]	
 				(let 	[token-begin 		(.indexOf text token)
 						trail-text 			(subs text 0 token-begin)
