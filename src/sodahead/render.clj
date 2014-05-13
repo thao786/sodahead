@@ -1,8 +1,7 @@
 (ns sodahead.render
 	(:require 	[clojure.java.io :as io]
 				[sodahead.parse :as p]
-				[sodahead.prep :as pe]
-				))
+				[sodahead.prep :as pe]))
 
 (defn render [original-text params]
 	(let 	[text 	(pe/get-included original-text)
@@ -20,10 +19,18 @@
 
 (ig 
 (require 	'[clojure.java.io :as io]
-				'[sodahead.parse :as p]
-				'[sodahead.prep :as pe])
+			'[sodahead.parse :as p]
+			'[sodahead.prep :as pe]
+			'[sodahead.render :as r])
 
 
-(spit "d" )
+
+(spit "d"
+(let 	[text 	(pe/get-included (slurp "a"))
+			chunks 	(p/chop text)
+			code-vector 	(map pe/morph-into-code chunks)
+			body-code 	(pe/wrap-do code-vector)
+			loadable-str 	(str "(ns sodahead.sudo-ns) " (pe/mk-defs {:a 4 :b 5}) body-code)]
+		loadable-str))
 
 )

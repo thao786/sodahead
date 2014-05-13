@@ -37,15 +37,17 @@
 (defn morph-into-code [single-raw-data-chunk]
 	(let 	[type 	(single-raw-data-chunk :type)
 			data 	(single-raw-data-chunk :content)
-			data-length 	(count data)]
+			data-length 	(count data)
+			escaped-data 	(.replace data "\\" "\\\\")]
 		(cond
 			(= type "text")
-			(str " (str \"" data "\") \n\n ")
+			(let []
+			(str " (str \"" escaped-data "\") \n\n ")
 
 			(= type "var")
 			(let [variable (subs data 1 data-length)]
 				(str " (try (load-string \"" variable 
-					"\")  (catch Exception e (str \"" data "\"))\n\n "))
+					"\")  (catch Exception e (str \"" escaped-data "\")))\n\n "))
 
 			(= type "func")
 			(str " " (subs data 1 data-length) " \n\n ")
@@ -71,3 +73,6 @@
 	(str "(def sodahead-chunk-vector ["
 		(apply str code-vector) "])"
 		" (apply str sodahead-chunk-vector)"))
+
+(defn replace-slash [text]
+	)

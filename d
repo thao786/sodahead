@@ -1,35 +1,36 @@
-htg %{ (def a 3)
-Math/frde}  {ge_n-sym}oikujy uyht{g  %((+ 8 7 ) )  uyhgf} %yc-v4	{j	hy{}
-ghj}ghjk %(+ 9 8 (- 9 5))
+(ns sodahead.sudo-ns)  (def b 5)  (def a 4) 
+
+(def sodahead-chunk-vector [ 
+
+	(str "htg ") 
+
+  (do  (def a 3)
+Math/PI) 
+
+  (str "  {ge_n-sym}oikujy uyht{g  ") 
+
+  (+ 8 7 )  
+
+  (str "  uyhgf} ") 
+
+  (try (load-string "yc-v4")  (catch Exception e (str "%yc-v4")))
+
+  (str "	{j	hy{}
+ghj}ghjk ") 
+
+  (+ 9 8 (- 9 5)) 
+
+  (str "
 }hjrfgh}
-ui %(ns test)
-
-(def data {:a 3 :b 4})
-
-
-(require 'clojure.stacktrace
-		'[sodahead.parse :as p])
-
-(import 'java.io.File)
-
-(def res
-	[	(do
-			(def x 9)
-			nil
-		)
-		(+ x 8)
-		(do
-			(def f (File. "a"))
-			(.canRead f))
-		(.getPath f)
-		(data :b)
-		*ns*
-		(p/getClosingBrac (slurp "a") 0 "{" "}")
-	])
-
-(apply str res)
+ui %
 yhtgrf
---------------------------------------\
-%include
+--------------------------------------\\
+") 
+
+  (try (load-string "include")  (catch Exception e (str "%include")))
+
+  (str "
 }
-===============
+===============") 
+
+ ]) (apply str sodahead-chunk-vector)
