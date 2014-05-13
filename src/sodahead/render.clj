@@ -12,6 +12,7 @@
 			(slurp content)
 			err-msg)))
 
+
 (defn get-included [original-text]
 	(loop 	[text original-text]
 		(if-let [includeToken 		(re-find #"%include\{[ \n\t]" text)]
@@ -36,9 +37,8 @@
 
 ;(require '[clojure.java.io :as io])
 
+
 ;(require '[sodahead.parse :as p])
-
-
 
 
 (defn render [original-text]

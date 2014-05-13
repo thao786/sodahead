@@ -1,6 +1,9 @@
 (ns sodahead.parse)
 
-(defn mkmap [text start-pos token label]
+(defn mkmap 
+	"make a vector recording the position each time this token appear in text,
+	starting from start-pos"
+	[text start-pos token label]
 	(loop 	[index 	start-pos
 			res 	[]]
 		(let 	[pos 	(.indexOf text token index)]
@@ -10,7 +13,11 @@
 									:pos pos}]
 					(recur (+ pos 1) (conj res newMap)))))))
 
-(defn removeQuote [s]
+(defn removeQuote 
+	"remove all quote in string to avoid confusion, 
+	patch with xxx string of the same length 
+	to preserve position"
+	[s]
 	(loop 	[text 	s]         
 		(let 	[token 	(re-find #"\\+\"" text)  ;")
 				]
@@ -29,9 +36,12 @@
 					(recur newText))
 				text))))
 
-
-;it assumes first is always opening brac
-(defn getClosingBrac [text-to-search start-pos brac close-brac]
+(defn getClosingBrac 
+	"get the position of the closing bracket/parenthesis
+	that matches brac (assuming they're not the same)
+	if there's none, return -1
+	watch out for strings"
+	[text-to-search start-pos brac close-brac]
 	(let 	[text 		(removeQuote text-to-search)
 			strVec 		(mkmap text start-pos "\"" "quote")
 			bracVec 	(mkmap text start-pos brac "brac")
@@ -81,18 +91,18 @@
 ; 	%{ code block } (avoid } in string)
 ; 	%variable
 ; 	%( statement ) 
-;#"%[^ 0-9\t\n][^ \t\n]*[ \t\n]"
-;#"%[^ 0-9\t\n][^ \t\n\)\}\"\@]*"
 ; 	(chop (slurp "a"))
-
-(defn chop [original-text]
+; #"%[^ 0-9\t\n\,\\\)\}\]\'\`][^ \t\n\(\)\{\}\[\]\@\\\~\`\,]*"
+(defn chop 
+	"partition the text into interleaving chunks of code and pure text"
+	[original-text]
 	(let  	[icon 		"%"
 			brac 		"{"
 			close-brac 	"}"] 
 		(loop 	[text 	original-text
 			 	res 	[]]
-			(if-let 	[token		(re-find #"%[^ 0-9\t\n][^ \t\n\(\)\{\}\[\]\@\\\~\`]*" text)]		
-
+			(if-let [token	(re-find #"%[\(\{a-zA-Z\_\-\!\$\%\&\*\?\|][^ \t\n\(\)\{\}\[\]\@\\\~\`\,\"\<\>]*"  ;"
+										text)]	
 				(let 	[token-begin 		(.indexOf text token)
 						trail-text 			(subs text 0 token-begin)
 						trail-text-length 	(count trail-text)
@@ -138,5 +148,7 @@
 
 (def sl (char 92)) ;slash \
 
-(defmacro ig [& expr] 
+(defmacro ig 
+	"comment macro"
+	[& expr] 
 	nil)

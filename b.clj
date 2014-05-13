@@ -4,12 +4,14 @@
 
 
 (require 'clojure.stacktrace
-		'[sodahead.parse :as p])
+		'[sodahead.parse :as p]
+		'[sodahead.render :refer :all])
 
 (import 'java.io.File)
 
 (def res
 	[	(do
+			(import 'java.io.File)
 			(def x 9)
 			nil
 		)
