@@ -36,10 +36,9 @@
 				text))))
 
 (defn getClosingBrac 
-	"get the position of the closing bracket/parenthesis
+	"get the position of the closing bracket/parenthesis e.x (getClosingBrac (slurp \"index.html\") 0 "{" "}")
 	that matches brac (assuming they're not the same)
-	if there's none, return -1
-	watch out for strings"
+	if there's none, return -1. watch out for strings"
 	[text-to-search start-pos brac close-brac]
 	(let 	[text 		(removeQuote text-to-search)
 			strVec 		(mkmap text start-pos "\"" "quote")
@@ -75,17 +74,10 @@
 						(recur new-array new-weight new-strzone)))))))
 
 
-
-;(getClosingBrac (slurp "a") 0 "{" "}")
-
-
-
 ;when starting a new text, look for: 
 ; 	%{ code block } (avoid } in string)
 ; 	%variable
 ; 	%( statement ) 
-; 	(chop (slurp "a"))
-; #"%[^ 0-9\t\n\,\\\)\}\]\'\`][^ \t\n\(\)\{\}\[\]\@\\\~\`\,]*"
 (defn chop 
 	"partition the text into interleaving chunks (vector) of code and pure text"
 	[original-text]
