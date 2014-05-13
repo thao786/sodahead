@@ -34,26 +34,40 @@
 								(subs text (+ 1 matching-sign-pos) text-length))))))
 			text)))
 
-
-;(require '[clojure.java.io :as io])
-
-
-;(require '[sodahead.parse :as p])
-
 (defn morph-into-code [single-raw-data-chunk]
 	(let 	[type 	(single-raw-data-chunk :type)
 			data 	(single-raw-data-chunk :content)
 			data-length 	(count data)]
 		(cond
 			(= type "text")
-			(str " (str \"" data "\") ")
+			(str " (str \"" data "\") \n\n ")
 
 			(= type "var")
-			(str " " (subs data 1 data-length) " ")
+			(let [variable (subs data 1 data-length)]
+				(str " (try (load-string \"" variable 
+					"\")  (catch Exception e (str \"" variable "\"))\n\n "))
 
 			(= type "func")
-			(str " " (subs data 1 data-length) " ")
+			(str " " (subs data 1 data-length) " \n\n ")
 
 			(= type "bloc")
 			(let 	[code 	(subs data 2 (- data-length 1))]
-				(str " (do " code ") ")))))
+				(str " (do " code ") \n\n ")))))
+
+(defn get-def-str 
+	"return string (def variable value)"
+	[params key-word]
+	(let [value 	(params key-word)
+		 variable	(name key-word)]
+		(str " (def " variable " " value ") ")))
+
+(defn mk-defs [params]
+	(if-let [key-list (keys params)]
+		(let [key-vector 	(vec key-list)
+			 def-vector 	(map (partial get-def-str params) key-vector)]
+			(apply str def-vector))))
+
+(defn wrap-do [code-vector]
+	(str "(def sodahead-chunk-vector ["
+		(apply str code-vector) "])"
+		" (apply str sodahead-chunk-vector)"))

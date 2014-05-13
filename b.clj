@@ -27,3 +27,6 @@
 	])
 
 (apply str res)
+
+
+(if (resolve 't) t 5)

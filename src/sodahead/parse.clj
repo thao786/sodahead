@@ -142,12 +142,5 @@
 				;no more valid % token, end of file
 				(let 	[lastblock 	{:type "text" :content text}]
 					(conj res lastblock))))))
-		
-
 
 (def sl (char 92)) ;slash \
-
-(defmacro ig 
-	"comment macro"
-	[& expr] 
-	nil)
