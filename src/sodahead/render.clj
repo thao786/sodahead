@@ -12,8 +12,6 @@
 			(slurp content)
 			err-msg)))
 
-
-
 (defn get-included [original-text]
 	(loop 	[text original-text]
 		(if-let [includeToken 		(re-find #"%include\{[ \n\t]" text)]
@@ -25,18 +23,15 @@
 					(str 	(subs text 0 include-pos) 
 							missing-Err-Msg
 							(subs text include-pos text-length))
-					(let 	[file-list-string 	(subs text include-pos matching-sign-pos)
+					(let 	[file-list-start 	(+ include-pos (count "%include") 1)
+							file-list-string 	(.trim (subs text file-list-start matching-sign-pos))
 							file-names 			(.split file-list-string "[ \n\t]+")
 							files-content-vector		(map get-file-content file-names)
 							files-dump 			(apply str files-content-vector)]
-						(str 	(subs text 0 include-pos)
+						(recur (str 	(subs text 0 include-pos)
 								files-dump
-								(subs text include-pos text-length)))))
+								(subs text (+ 1 matching-sign-pos) text-length))))))
 			text)))
-
-
-
-
 
 
 ;(require '[clojure.java.io :as io])
