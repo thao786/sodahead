@@ -11,7 +11,7 @@
 				res
 				(let 	[newMap 	{:type label
 									:pos pos}]
-					(recur (+ pos 1) (conj res newMap)))))))
+					(recur (inc pos) (conj res newMap)))))))
 
 (defn removeQuote 
 	"remove all quote in string to avoid confusion, 
@@ -21,7 +21,7 @@
 		(let 	[token 	(re-find #"\\+\"" text)  ;")
 				]
 			(if token
-				(let 	[freq 	(- (count token) 1)
+				(let 	[freq 	(dec (count token))
 						patch 	(if (odd? freq)
 									;if odd no of \, get rid of all
 									(apply str (repeat (count token) "x"))
@@ -59,10 +59,10 @@
 										weight
 
 										(= type "brac")
-										(+ 1 weight)
+										(inc weight)
 
 										(= type "close")
-										(- weight 1)
+										(dec weight)
 
 										:else
 										weight)
@@ -113,7 +113,7 @@
 					(cond
 						;a %{
 						(= 1 (.indexOf token brac))
-						(let 	[close-pos 	(+ 1 (getClosingBrac text token-begin brac close-brac))
+						(let 	[close-pos 	(inc (getClosingBrac text token-begin brac close-brac))
 								code 		(subs text token-begin close-pos)
 								code-block 	{:type "bloc" :content code}
 								code-length (count code)
@@ -124,7 +124,7 @@
 
 						;a %(
 						(= 1 (.indexOf token "("))
-						(let 	[close-pos 	(+ 1 (getClosingBrac text token-begin "(" ")"))
+						(let 	[close-pos 	(inc (getClosingBrac text token-begin "(" ")"))
 								code 		(subs text token-begin close-pos)
 								code-block 	{:type "func" :content code}
 								code-length (count code)

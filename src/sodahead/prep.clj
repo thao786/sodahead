@@ -5,7 +5,7 @@
 
 (defn get-file-content [file-name-within-quote]
 	(let 	[name 	(subs file-name-within-quote 1 
-							(- (count file-name-within-quote) 1))
+							(dec (count file-name-within-quote)))
 			err-msg (str "Cannot find " name ". Please make sure its name is surounded by double quote and can be found by clojure.java.io/resource")
 			content  (io/resource name)]
 		(if content
@@ -24,14 +24,14 @@
 					(str 	(subs text 0 include-pos) 
 							missing-Err-Msg
 							(subs text include-pos text-length))
-					(let 	[file-list-start 	(+ include-pos (count "%include") 1)
+					(let 	[file-list-start 	(inc include-pos (count "%include"))
 							file-list-string 	(.trim (subs text file-list-start matching-sign-pos))
 							file-names 			(.split file-list-string "[ \n\t]+")
 							files-content-vector		(map get-file-content file-names)
 							files-dump 			(apply str files-content-vector)]
 						(recur (str 	(subs text 0 include-pos)
 								files-dump
-								(subs text (+ 1 matching-sign-pos) text-length))))))
+								(subs text (inc matching-sign-pos) text-length))))))
 			text)))
 
 (defn morph-into-code [single-raw-data-chunk]

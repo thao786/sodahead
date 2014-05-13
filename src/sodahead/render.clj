@@ -7,8 +7,8 @@
 	(let 	[text 	(pe/get-included original-text)
 			chunks 	(p/chop text)
 			code-vector 	(map pe/morph-into-code chunks)
-			body-code 	(wrap-do code-vector)
-			loadable-str 	(str "(ns sodahead.sudo-ns) " (mk-defs params) body-code)]
+			body-code 	(pe/wrap-do code-vector)
+			loadable-str 	(str "(ns sodahead.sudo-ns) " (pe/mk-defs params) body-code)]
 		loadable-str))
 
 
