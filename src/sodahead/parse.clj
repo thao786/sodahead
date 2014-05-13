@@ -15,8 +15,7 @@
 
 (defn removeQuote 
 	"remove all quote in string to avoid confusion, 
-	patch with xxx string of the same length 
-	to preserve position"
+	patch with strings of x's of the same length to preserve position"
 	[s]
 	(loop 	[text 	s]         
 		(let 	[token 	(re-find #"\\+\"" text)  ;")
@@ -94,14 +93,14 @@
 ; 	(chop (slurp "a"))
 ; #"%[^ 0-9\t\n\,\\\)\}\]\'\`][^ \t\n\(\)\{\}\[\]\@\\\~\`\,]*"
 (defn chop 
-	"partition the text into interleaving chunks of code and pure text"
+	"partition the text into interleaving chunks (vector) of code and pure text"
 	[original-text]
 	(let  	[icon 		"%"
 			brac 		"{"
 			close-brac 	"}"] 
 		(loop 	[text 	original-text
 			 	res 	[]]
-			(if-let [token	(re-find #"%[\(\{a-zA-Z\_\-\!\$\%\&\*\?\|][^ \t\n\(\)\{\}\[\]\@\\\~\`\,\"\<\>]*"  ;"
+			(if-let [token	(re-find #"%[\(\{a-zA-Z\_\-\!\$\%\&\*\?\|][^ \t\n\(\)\{\}\[\]\@\\\~\`\,\.\"\<\>]*"  ;"
 										text)]	
 				(let 	[token-begin 		(.indexOf text token)
 						trail-text 			(subs text 0 token-begin)

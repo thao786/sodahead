@@ -10,19 +10,20 @@
 (import 'java.io.File)
 
 (def res
-	[	(do
+	[	(do 
 			(import 'java.io.File)
-			(def x 9)
-			nil
+			(def x 49)
+			x
 		)
-		(+ x 8)
-		(do
+		
+		(do x
 			(def f (File. "a"))
 			(.canRead f))
 		(.getPath f)
 		(data :b)
 		*ns*
 		(p/getClosingBrac (slurp "a") 0 "{" "}")
+		(Math/PI)
 	])
 
 (apply str res)
