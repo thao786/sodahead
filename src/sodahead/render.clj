@@ -1,7 +1,8 @@
 (ns sodahead.render
 	(:require 	[clojure.java.io :as io]
 				[sodahead.parse :as p]
-				[sodahead.prep :as pe]))
+				[sodahead.prep :as pe]
+				))
 
 (defn render [original-text params]
 	(let 	[text 	(pe/get-included original-text)
@@ -9,7 +10,7 @@
 			code-vector 	(map pe/morph-into-code chunks)
 			body-code 	(pe/wrap-do code-vector)
 			loadable-str 	(str "(ns sodahead.sudo-ns) " (pe/mk-defs params) body-code)]
-		loadable-str))
+		(load-string loadable-str)))
 
 
 (defmacro ig 

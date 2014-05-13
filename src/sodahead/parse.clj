@@ -55,27 +55,21 @@
 						type 		(cur :type)
 						new-weight 	(cond
 										;if this is within a string, do nothing
-										(= strzone 1)
-										weight
+										(= strzone 1) weight
 
-										(= type "brac")
-										(inc weight)
+										(= type "brac") (inc weight)
 
-										(= type "close")
-										(dec weight)
+										(= type "close") (dec weight)
 
-										:else
-										weight)
+										:else weight)
 						new-strzone	(if (= "quote" type)
 										(* -1 strzone)
 										strzone)
 						new-array 	(vec (rest array))]
 					(cond
-						(= new-weight 0)
-						(cur :pos)
+						(= new-weight 0) (cur :pos)
 
-						(= 0 (count new-array))
-						-1
+						(= 0 (count new-array)) -1
 
 						:else
 						(recur new-array new-weight new-strzone)))))))
