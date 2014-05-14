@@ -1,6 +1,8 @@
-(ns test)
+(ns test5)
 
-(def data {:a 3 :b 4})
+
+
+(def data {:a 3 :b 9})
 
 
 (require 'clojure.stacktrace
@@ -9,8 +11,10 @@
 
 (def res
 	[	(do 
+			
 			(def x 49)
-			x)
+			x
+		)
 		
 		(do (import 'java.io.File)
 			(def f (File. "a"))
@@ -18,8 +22,9 @@
 		(data :b)
 		*ns*
 		(p/getClosingBrac (slurp "a") 0 "{" "}")
-		(Math/PI)
+		Math/PI
 	])
+
 
 (apply str res)
 
