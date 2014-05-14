@@ -2,7 +2,6 @@
 	(:require 	[sodahead.parse :as p]
 				[clojure.java.io :as io]))
 
-
 (defn get-file-content
 	"strip off quote and get the file's content"
 	[file-name-within-quote]
@@ -15,7 +14,7 @@
 			err-msg)))
 
 (defn get-included
-	"recursively retrieve all included files and inject concated contents"
+	"recursively retrieve all included files and inject plain concated content"
 	[original-text]
 	(loop 	[text original-text]
 		(if-let [includeToken 		(re-find #"%include\{[\s]+" text)]
@@ -53,7 +52,7 @@
 				(str " (try (load-string \"" variable 
 					"\")  (catch Exception e (str \"" escaped-data "\")))\n"))
 
-			(= type "func")
+			(= type "expr")
 			(let [function (subs data 1 data-length)]
 				(str " (try " function 
 					" (catch Exception e \"Exception happened\"))\n"))

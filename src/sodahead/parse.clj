@@ -112,7 +112,7 @@
 						(= 1 (.indexOf token "("))
 						(let 	[close-pos 	(inc (getClosingBrac text token-begin "(" ")"))
 								code 		(subs text token-begin close-pos)
-								code-block 	{:type "func" :content code}
+								code-block 	{:type "expr" :content code}
 								code-length (count code)
 								code-end 	(+ code-length trail-text-length)
 								newText 	(subs text code-end text-length)
