@@ -1,11 +1,6 @@
 (defproject sodahead "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [compojure "1.1.7"]
-                 [org.clojure/core.cache "0.6.3"]]
-  :plugins [[lein-ring "0.8.10"]]
-  :ring {:handler sodahead.handler/app}
-  :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring-mock "0.1.5"]]}})
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :dependencies [[org.clojure/clojure "1.6.0"]])
