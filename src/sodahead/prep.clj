@@ -12,10 +12,9 @@
 			(slurp content)
 			err-msg)))
 
-;#"%\{include\[ \n\t]"
 (defn get-included [original-text]
 	(loop 	[text original-text]
-		(if-let [includeToken 		(re-find #"[%]{1}[\{]{1}include[\s]+" text)]
+		(if-let [includeToken 		(re-find #"%include\{[\s]+" text)]
 			(let 	[include-pos 		(.indexOf text includeToken)
 					matching-sign-pos	(p/getClosingBrac text include-pos "{" "}")
 					text-length 		(count text)
@@ -41,26 +40,29 @@
 			escaped-data 	(.replace data "\\" "\\\\")]
 		(cond
 			(= type "text")
-			(str " (str \"" escaped-data "\") \n\n ")
+			(str " (str \"" escaped-data "\")\n")
 
 			(= type "var")
 			(let [variable (subs data 1 data-length)]
 				(str " (try (load-string \"" variable 
-					"\")  (catch Exception e (str \"" escaped-data "\")))\n\n "))
+					"\")  (catch Exception e (str \"" escaped-data "\")))\n"))
 
 			(= type "func")
-			(str " " (subs data 1 data-length) " \n\n ")
+			(let [function (subs data 1 data-length)]
+				(str " (try " function 
+					" (catch Exception e \"Exception happened\"))\n"))
 
 			(= type "bloc")
-			(let 	[code 	(subs data 2 (dec data-length))]
-				(str " (do " code ") \n\n ")))))
+			(let 	[code 	(subs data 2 (dec data-length))
+					do-bloc 	(str " (do " code ")")]
+				(str " (try " do-bloc " (catch Exception e \"Exception happened\"))\n")))))
 
 (defn get-def-str 
 	"return string (def variable value)"
 	[params key-word]
 	(let [value 	(params key-word)
 		 variable	(name key-word)]
-		(str " (def " variable " " value ") ")))
+		(str " (def " variable " " value ")\n")))
 
 (defn mk-defs [params]
 	(if-let [key-list (keys params)]

@@ -1,32 +1,18 @@
 (ns sodahead.sudo-ns)  (def b 5)  (def a 4) (def sodahead-chunk-vector [ (str "htg ") 
 
-  (do  (def a 3)
-Math/frde) 
+  (try  (do  (def a 3)
+Math/frde) (catch Exception e "Exception happened"))  (str "  {ge_n-sym}oikujy uyht{g  ") 
 
-  (str "  {ge_n-sym}oikujy uyht{g  ") 
-
-  ((+ 8 7 ) ) 
-
-  (str "  uyhgf} ") 
+  (try ((+ 8 7 ) ) (catch Exception e "Exception happened"))  (str "  uyhgf} ") 
 
   (try (load-string "yc-v4")  (catch Exception e (str "%yc-v4")))
 
   (str "	{j	hy{}
 ghj}ghjk ") 
 
-  (+ 9 8 (- 9 5)) 
-
-  (str "
+  (try (+ 9 8 (- 9 5)) (catch Exception e "Exception happened"))  (str "
 }hjrfgh}
-ui %
-yhtgrf
---------------------------------------\\
-") 
-
-  (try (load-string "include")  (catch Exception e (str "%include")))
-
-  (str "
-}
+ui Cannot find htgr. Please make sure its name is surounded by double quote and can be found by clojure.java.io/resourceCannot find -------------------------------------. Please make sure its name is surounded by double quote and can be found by clojure.java.io/resourceCannot find includ. Please make sure its name is surounded by double quote and can be found by clojure.java.io/resource
 ===============") 
 
  ]) (apply str sodahead-chunk-vector)
