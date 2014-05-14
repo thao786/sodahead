@@ -8,7 +8,7 @@
 			chunks 	(p/chop text)
 			code-vector 	(map pe/morph-into-code chunks)
 			body-code 	(pe/wrap-do code-vector)
-			loadable-str 	(str "(ns sodahead.sudo-ns) " (pe/mk-defs params) body-code)]
+			loadable-str 	(str "(ns sodahead.sudo-ns)\n" (pe/mk-defs params) body-code)]
 		(load-string loadable-str)))
 
 
@@ -30,7 +30,7 @@
 			chunks 	(p/chop text)
 			code-vector 	(map pe/morph-into-code chunks)
 			body-code 	(pe/wrap-do code-vector)
-			loadable-str 	(str "(ns sodahead.sudo-ns) " (pe/mk-defs {:a 4 :b 5}) body-code)]
+			loadable-str 	(str "(ns sodahead.sudo-ns)\n" (pe/mk-defs {:a 4 :b 5}) body-code)]
 		loadable-str))
 
 )

@@ -73,11 +73,10 @@
 						:else
 						(recur new-array new-weight new-strzone)))))))
 
-
 ;when starting a new text, look for: 
-; 	%{ code block } (avoid } in string)
+; 	%{ code block }
 ; 	%variable
-; 	%( statement ) 
+; 	%( expression ) 
 (defn chop 
 	"partition the text into interleaving chunks (vector) of code and pure text"
 	[original-text]
@@ -112,7 +111,7 @@
 						(= 1 (.indexOf token "("))
 						(let 	[close-pos 	(inc (getClosingBrac text token-begin "(" ")"))
 								code 		(subs text token-begin close-pos)
-								code-block 	{:type "func" :content code}
+								code-block 	{:type "expr" :content code}
 								code-length (count code)
 								code-end 	(+ code-length trail-text-length)
 								newText 	(subs text code-end text-length)

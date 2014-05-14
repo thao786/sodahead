@@ -10,11 +10,11 @@
 (import 'java.io.File)
 
 (def res
-	[	(do 
+	[	(try (do 
 			(import 'java.io.File)
 			(def x 49)
 			x
-		)
+		) (catch Exception e "Exception happened"))
 		
 		(do x
 			(def f (File. "a"))
@@ -23,10 +23,7 @@
 		(data :b)
 		*ns*
 		(p/getClosingBrac (slurp "a") 0 "{" "}")
-		(Math/PI)
+		Math/PI
 	])
 
 (apply str res)
-
-
-(if (resolve 't) t 5)
