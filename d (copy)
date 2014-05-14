@@ -1,0 +1,10 @@
+{:type "text", :content "htg "}
+{:type "bloc", :content "%{ (def a 3)\nMath/frde}"}
+{:type "text", :content "  {ge_n-sym}oikujy uyht{g  "}
+{:type "func", :content "%((+ 8 7 ) )"}
+{:type "text", :content "  uyhgf} "}
+{:type "var", :content "%yc-v4"}
+{:type "text", :content "\t{j\thy{}\nghj}ghjk "}
+{:type "func", :content "%(+ 9 8 (- 9 5))"}
+{:type "text", :content "\n}hjrfgh}\nui %\nyhtgrf\n--------------------------------------\\\n"
+}{:type "var", :content "%include"}{:type "text", :content "\n}\n==============="}

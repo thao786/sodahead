@@ -1,15 +1,11 @@
-(ns sodahead.sudo-ns)  (def b 5)  (def a 4) 
-
-(def sodahead-chunk-vector [ 
-
-	(str "htg ") 
+(ns sodahead.sudo-ns)  (def b 5)  (def a 4) (def sodahead-chunk-vector [ (str "htg ") 
 
   (do  (def a 3)
-Math/PI) 
+Math/frde) 
 
   (str "  {ge_n-sym}oikujy uyht{g  ") 
 
-  (+ 8 7 )  
+  ((+ 8 7 ) ) 
 
   (str "  uyhgf} ") 
 

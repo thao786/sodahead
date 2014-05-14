@@ -41,7 +41,6 @@
 			escaped-data 	(.replace data "\\" "\\\\")]
 		(cond
 			(= type "text")
-			(let []
 			(str " (str \"" escaped-data "\") \n\n ")
 
 			(= type "var")
@@ -73,6 +72,3 @@
 	(str "(def sodahead-chunk-vector ["
 		(apply str code-vector) "])"
 		" (apply str sodahead-chunk-vector)"))
-
-(defn replace-slash [text]
-	)
