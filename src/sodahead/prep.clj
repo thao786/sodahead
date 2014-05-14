@@ -3,7 +3,9 @@
 				[clojure.java.io :as io]))
 
 
-(defn get-file-content [file-name-within-quote]
+(defn get-file-content
+	"strip off quote and get the file's content"
+	[file-name-within-quote]
 	(let 	[name 	(subs file-name-within-quote 1 
 							(dec (count file-name-within-quote)))
 			err-msg (str "Cannot find " name ". Please make sure its name is surounded by double quote and can be found by clojure.java.io/resource")
@@ -12,7 +14,9 @@
 			(slurp content)
 			err-msg)))
 
-(defn get-included [original-text]
+(defn get-included
+	"recursively retrieve all included files and inject concated contents"
+	[original-text]
 	(loop 	[text original-text]
 		(if-let [includeToken 		(re-find #"%include\{[\s]+" text)]
 			(let 	[include-pos 		(.indexOf text includeToken)
@@ -33,7 +37,9 @@
 								(subs text (inc matching-sign-pos) text-length))))))
 			text)))
 
-(defn morph-into-code [single-raw-data-chunk]
+(defn morph-into-code
+	"depends on the type of code block, wrap it in appropriate handler"
+	[single-raw-data-chunk]
 	(let 	[type 	(single-raw-data-chunk :type)
 			data 	(single-raw-data-chunk :content)
 			data-length 	(count data)
@@ -58,19 +64,24 @@
 				(str " (try " do-bloc " (catch Exception e \"Exception happened\"))\n")))))
 
 (defn get-def-str 
-	"return string (def variable value)"
+	"return the string (def variable value)"
 	[params key-word]
 	(let [value 	(params key-word)
 		 variable	(name key-word)]
 		(str " (def " variable " " value ")\n")))
 
-(defn mk-defs [params]
+(defn mk-defs
+	"generate independent def expression for each parameters"
+	[params]
 	(if-let [key-list (keys params)]
 		(let [key-vector 	(vec key-list)
 			 def-vector 	(map (partial get-def-str params) key-vector)]
 			(apply str def-vector))))
 
-(defn wrap-do [code-vector]
+(defn wrap-do
+	"group together imported libraries 
+	then wrap all following code blocks in a huge (do ...) within a function"
+	[code-vector]
 	(str "(def sodahead-chunk-vector ["
 		(apply str code-vector) "])"
 		" (apply str sodahead-chunk-vector)"))
