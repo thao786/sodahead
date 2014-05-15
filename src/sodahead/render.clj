@@ -34,8 +34,9 @@
 			param-key 	(keys params)
 		 	key-str 	(apply str (for [x (keys params)] 
 		 						(str (name x) " ")))
-		 	new-ns 	(gensym "sodahead")
+		 	new-ns 	(gensym "sodahead")		 	
 		 	new-ns-file (str "src/" new-ns ".clj")
+		 	dummy 	(swap! );need to update atom
 		 	dummy 	(spit new-ns-file (gen-ns-file text key-str new-ns))
 		 	dummy 	(load "temp")]
 		new-ns))
@@ -45,6 +46,6 @@
 	(if-let [file-ns	(get ns-list file)]
 		(apply file-ns/render (vals params))
 		(if-let [text (try (slurp file) (catch Exception e nil))]
-			(let [new-ns (assemble text params)]
+			(let [new-ns (assemble text params)] 
 				(apply new-ns/render (vals params)))
 			(str file " cannot be found by slurp."))))
