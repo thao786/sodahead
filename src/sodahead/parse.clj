@@ -9,8 +9,7 @@
 		(let 	[pos 	(.indexOf text token index)]
 			(if (neg? pos)
 				res
-				(let 	[newMap 	{:type label
-									:pos pos}]
+				(let 	[newMap 	{:type label :pos pos}]
 					(recur (inc pos) (conj res newMap)))))))
 
 (defn removeQuote 
@@ -55,11 +54,8 @@
 						new-weight 	(cond
 										;if this is within a string, do nothing
 										(= strzone 1) weight
-
 										(= type "brac") (inc weight)
-
 										(= type "close") (dec weight)
-
 										:else weight)
 						new-strzone	(if (= "quote" type)
 										(* -1 strzone)
@@ -67,7 +63,6 @@
 						new-array 	(vec (rest array))]
 					(cond
 						(= new-weight 0) (cur :pos)
-
 						(= 0 (count new-array)) -1
 
 						:else

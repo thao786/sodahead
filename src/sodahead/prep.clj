@@ -18,19 +18,21 @@
 	[original-text]
 	(loop 	[text original-text]
 		(if-let [includeToken 		(re-find #"%include\{[\s]+" text)]
-			(let 	[include-pos 		(.indexOf text includeToken)
-					matching-sign-pos	(p/getClosingBrac text include-pos "{" "}")
-					text-length 		(count text)
-					missing-Err-Msg 	"No include matching sign % found"]
+			(let [include-pos 		(.indexOf text includeToken)
+				matching-sign-pos	(p/getClosingBrac text include-pos "{" "}")
+				text-length 		(count text)
+					missing-Err-Msg 	"No include matching sign % found"
+				]
 				(if (neg? matching-sign-pos)
 					(str 	(subs text 0 include-pos) 
 							missing-Err-Msg
 							(subs text include-pos text-length))
-					(let 	[file-list-start 	(+ include-pos (count "%{include"))
-							file-list-string 	(.trim (subs text file-list-start matching-sign-pos))
-							file-names 			(.split file-list-string "[ \n\t]+")
-							files-content-vector		(map get-file-content file-names)
-							files-dump 			(apply str files-content-vector)]
+					(let [file-list-start 	(+ include-pos (count "%{include"))
+						file-list-string 	(.trim (subs text file-list-start matching-sign-pos))
+						file-names 			(.split file-list-string "[ \n\t]+")
+						files-content-vector		(map get-file-content file-names)
+						files-dump 			(apply str files-content-vector)
+						]
 						(recur (str 	(subs text 0 include-pos)
 								files-dump
 								(subs text (inc matching-sign-pos) text-length))))))
@@ -39,10 +41,10 @@
 (defn morph-into-code
 	"depends on the type of code block, wrap it in appropriate handler"
 	[single-raw-data-chunk]
-	(let 	[type 	(single-raw-data-chunk :type)
-			data 	(single-raw-data-chunk :content)
-			data-length 	(count data)
-			escaped-data 	(.replace data "\\" "\\\\")]
+	(let [type 	(single-raw-data-chunk :type)
+		data 	(single-raw-data-chunk :content)
+		data-length 	(count data)
+		escaped-data 	(.replace data "\\" "\\\\")]
 		(cond
 			(= type "text")
 			(str " (str \"" escaped-data "\")\n")
@@ -79,12 +81,9 @@
 
 (defn wrap-do
 	"group together imported libraries 
-	then wrap all following code blocks in a huge (do ...) within a function"
-	[code-vector params]
-	(let [key-vec 	(keys params)
-		 key-str 	(apply str 
-		 				(for [x (keys params)] 
-		 					(str (name x) " ")))] 
+	then wrap all following code blocks in a huge function"
+	[code-vector key-str]
+	(let [key-vec 	(keys params)] 
 		(str "(defn render [" key-str "]\n(let [blocks ["
 			(apply str code-vector) "]]"
 			"\n(apply str blocks)))")))
