@@ -80,7 +80,11 @@
 (defn wrap-do
 	"group together imported libraries 
 	then wrap all following code blocks in a huge (do ...) within a function"
-	[code-vector]
-	(str "(def sodahead-chunk-vector ["
-		(apply str code-vector) "])"
-		" (apply str sodahead-chunk-vector)"))
+	[code-vector params]
+	(let [key-vec 	(keys params)
+		 key-str 	(apply str 
+		 				(for [x (keys params)] 
+		 					(str (name x) " ")))] 
+		(str "(defn render [" key-str "]\n(let [blocks ["
+			(apply str code-vector) "]]"
+			"\n(apply str blocks)))")))
