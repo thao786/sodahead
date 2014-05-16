@@ -2,22 +2,11 @@
 	(:require 	[sodahead.parse :as p]
 				[clojure.java.io :as io]))
 
-(defn get-file-content
-	"strip off quote and get the file's content"
-	[file-name-within-quote]
-	(let 	[name 	(subs file-name-within-quote 1 
-							(dec (count file-name-within-quote)))
-			err-msg (str "Cannot find " name ". Please make sure its name is surounded by double quote and can be found by slurp.")
-			content  (try (slurp name) (catch Exception e nil))]
-		(if content
-			content
-			err-msg)))
-
 (defn get-included
 	"recursively retrieve all included files and inject plain concated content"
 	[original-text]
 	(loop 	[text original-text]
-		(if-let [includeToken 		(re-find #"%include\{[\s]*" text)]
+		(if-let [includeToken 		(re-find #"%include[\s]*\{" text)]
 			(let [include-pos 		(.indexOf text includeToken)
 				matching-sign-pos	(p/getClosingBrac text include-pos "{" "}")
 				text-length 		(count text)
@@ -27,7 +16,8 @@
 					(str 	(subs text 0 include-pos) 
 							missing-Err-Msg
 							(subs text include-pos text-length))
-					(let [file-list-start 	(+ include-pos (count "%{include"))
+					(let [first-brac-pos 	(.indexOf text "{" include-pos)
+						file-list-start 	(inc first-brac-pos)
 						file-list-string 	(.trim (subs text file-list-start matching-sign-pos))
 						file-names 			(.split file-list-string "[ \n\t]+")
 						files-content-vector		(map get-file-content file-names)
@@ -37,6 +27,13 @@
 								files-dump
 								(subs text (inc matching-sign-pos) text-length))))))
 			text)))
+
+(defn- get-files [file-list-string]
+	(if (= 0 (count file-list-string))
+		""
+		(let 	[file-names 	(.split file-list-string "[ \n\t]+")
+				files-content-vector	(map get-file-content file-names)]
+			(apply str files-content-vector))))
 
 (defn morph-into-code
 	"depends on the type of code block, wrap it in appropriate handler"
@@ -48,7 +45,7 @@
 		(cond
 			(= type "text")
 			(let [escaped-quote-data (.replace escaped-data "\"" "\\\"")]
-				(str " (str \"" escaped-data "\")\n"))
+				(str " (str \"" escaped-quote-data "\")\n"))
 
 			(= type "var")
 			(let [variable (subs data 1 data-length)]
