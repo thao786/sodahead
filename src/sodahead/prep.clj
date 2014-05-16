@@ -82,8 +82,7 @@
 (defn wrap-do
 	"group together imported libraries 
 	then wrap all following code blocks in a huge function"
-	[code-vector key-str]
-	(let [key-vec 	(keys params)] 
-		(str "(defn render [" key-str "]\n(let [blocks ["
-			(apply str code-vector) "]]"
-			"\n(apply str blocks)))")))
+	[code-vector]
+	(str "(defn render [params]\n(let [blocks ["
+		(apply str code-vector) "]]"
+		"\n(apply str blocks)))"))
