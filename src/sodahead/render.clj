@@ -17,7 +17,7 @@
 
 (defn gen-ns-file
 	"return a loadable body string preceded by the require block"
-	[original-text params]
+	[original-text]
 	(let 	[chunks 	(-> original-text (pe/get-included) (p/chop))
 			ns-block-index 	(some (partial bloc-or-expr chunks) chunks)
 			ns-block 	(get chunks ns-block-index)
@@ -33,7 +33,7 @@
 	[text params]
 	(let 	[temp-ns 	(gensym "sodahead")
 			temp-ns-str 	(str "(ns " temp-ns ")\n")
-			load-str 	(str temp-ns-str (gen-ns-file text params))
+			load-str 	(str temp-ns-str (gen-ns-file text))
 			dummy 	(load-string load-str)
 			result 	(load-string (str "(" temp-ns "/render " params ")"))
 			dummy 	(remove-ns temp-ns)]
@@ -46,7 +46,10 @@
 		(render-text (io/resource file-path) params)))
 
 
-(defmacro ig [& e] nil)
+(defmacro ig 
+	"comment macro"
+	[& expr] 
+	nil)
 
 (ig
 (require 	'[clojure.java.io :as io]

@@ -47,7 +47,8 @@
 		escaped-data 	(.replace data "\\" "\\\\")]
 		(cond
 			(= type "text")
-			(str " (str \"" escaped-data "\")\n")
+			(let [escaped-quote-data (.replace escaped-data "\"" "\\\"")]
+				(str " (str \"" escaped-data "\")\n"))
 
 			(= type "var")
 			(let [variable (subs data 1 data-length)]
