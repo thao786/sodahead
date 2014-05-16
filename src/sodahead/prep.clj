@@ -45,13 +45,6 @@
 								(subs text (inc matching-sign-pos) text-length))))))
 			text)))
 
-(defn- get-files [file-list-string]
-	(if (= 0 (count file-list-string))
-		""
-		(let 	[file-names 	(.split file-list-string "[ \n\t]+")
-				files-content-vector	(map get-file-content file-names)]
-			(apply str files-content-vector))))
-
 (defn morph-into-code
 	"depends on the type of code block, wrap it in appropriate handler"
 	[single-raw-data-chunk]

@@ -40,6 +40,9 @@
 		result))
 
 (defn render
+	[file-path]
+	(render file-path {})
+
 	[file-path params]
 	(if-let [file-ns (get ns-list file-path)]
 		(load-string "(file-ns/render params)")
