@@ -26,14 +26,13 @@
     }
     </style>
 </head>
-
+%{}
 <!--================================================== -->
   <body class="maubody1">
 <div class="le">  
 
 
-
-   Cannot find clojure.core$name@daf4f1e. Please make sure its name is surounded by double quote and can be found by slurp.
+   
 
 
 
@@ -252,7 +251,7 @@
 
 </div><!--le-->
 
-Cannot find clojure.core$name@daf4f1e. Please make sure its name is surounded by double quote and can be found by slurp.
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -2,6 +2,23 @@
 	(:require 	[sodahead.parse :as p]
 				[clojure.java.io :as io]))
 
+(defn get-file-content
+	"strip off quote and get the file's content"
+	[file-name-within-quote]
+	(let 	[err-msg (str "Cannot find " name ". Please make sure its name is surounded by double quote and can be found by slurp.")
+			len 	(count file-name-within-quote)]
+		(cond
+			(= 0 len) ""
+
+			(< len 3) err-msg
+
+			:else
+			(let 	[name 	(subs file-name-within-quote 1 
+							(dec (count file-name-within-quote)))
+					content 	(try (slurp name) (catch Exception e nil))]
+				(if content 
+					content nil)))))
+
 (defn get-included
 	"recursively retrieve all included files and inject plain concated content"
 	[original-text]
