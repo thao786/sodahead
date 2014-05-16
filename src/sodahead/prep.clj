@@ -7,17 +7,17 @@
 	[file-name-within-quote]
 	(let 	[name 	(subs file-name-within-quote 1 
 							(dec (count file-name-within-quote)))
-			err-msg (str "Cannot find " name ". Please make sure its name is surounded by double quote and can be found by clojure.java.io/resource")
-			content  (io/resource name)]
+			err-msg (str "Cannot find " name ". Please make sure its name is surounded by double quote and can be found by slurp.")
+			content  (try (slurp name) (catch Exception e nil))]
 		(if content
-			(slurp content)
+			content
 			err-msg)))
 
 (defn get-included
 	"recursively retrieve all included files and inject plain concated content"
 	[original-text]
 	(loop 	[text original-text]
-		(if-let [includeToken 		(re-find #"%include\{[\s]+" text)]
+		(if-let [includeToken 		(re-find #"%include\{[\s]*" text)]
 			(let [include-pos 		(.indexOf text includeToken)
 				matching-sign-pos	(p/getClosingBrac text include-pos "{" "}")
 				text-length 		(count text)

@@ -1,0 +1,23 @@
+<!--================================================== -->
+  <body class="maubody1">
+<div class="le">  
+
+%{}
+
+   %include{"res/utility/pageheader.html"}
+
+
+
+    <!--================================================== -->
+
+
+
+
+
+
+    </div><!--le-->
+
+%include{"res/utility/footer.html"}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->

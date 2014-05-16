@@ -24,35 +24,9 @@
 			ns-block-content (str (pe/morph-into-code ns-block) "\n")
 			body-chunks 	(remove #(= ns-block-index (.indexOf chunks %)) chunks)
 			code-vector 	(map pe/morph-into-code body-chunks)
-			body-code 	(pe/wrap-do code-vector params)
+			body-code 	(pe/wrap-do code-vector)
 			body-str 	(str ns-block-content body-code)]
 		body-str))
-
-(defn assemble
-	"create file namespace containing function wt such params"
-	[text params]
-	(let 	[
-		 	new-ns 	(gensym "sodahead")		 	
-		 	new-ns-file (str "src/" new-ns ".clj")
-		 	dummy 	(swap! );need to update atom
-		 	dummy 	(spit new-ns-file (gen-ns-file text key-str new-ns))
-		 	dummy 	(load "temp")]
-		new-ns))
-
-(defn render
-	[text params]
-	(if-let [file-ns	(get ns-list file)]
-		(file-ns/render params)
-		(render-text (slurp text) params)))
-
-(defn render2
-	[text params]
-	(if-let [file-ns	(get ns-list file)]
-		(file-ns/render params)
-		(if-let [text (try (slurp file) (catch Exception e nil))]
-			(let [new-ns (assemble text params)] 
-				(new-ns/render params))
-			(str file " cannot be found by slurp."))))
 
 (defn render-text
 	"render text, remove temp ns right after"
@@ -64,3 +38,20 @@
 			result 	(load-string (str "(" temp-ns "/render " params ")"))
 			dummy 	(remove-ns temp-ns)]
 		result))
+
+(defn render
+	[file-path params]
+	(if-let [file-ns (get ns-list file-path)]
+		(load-string "(file-ns/render params)")
+		(render-text (io/resource file-path) params)))
+
+
+(defmacro ig [& e] nil)
+
+(ig
+(require 	'[clojure.java.io :as io]
+			'[sodahead.parse :as p]
+			'[sodahead.prep :as pe]
+			'[sodahead.render :as r])
+
+)
