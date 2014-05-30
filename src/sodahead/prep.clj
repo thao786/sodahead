@@ -15,7 +15,7 @@
 			:else
 			(let 	[name 	(subs file-name-within-quote 1 
 							(dec (count file-name-within-quote)))
-					content 	(try (slurp name) (catch Exception e nil))]
+					content 	(try (slurp (io/resource name)) (catch Exception e nil))]
 				(if content 
 					content nil)))))
 
@@ -59,18 +59,16 @@
 
 			(= type "var")
 			(let [variable (subs data 1 data-length)]
-				(str " (try (load-string \"" variable 
-					"\")  (catch Exception e (str \"" escaped-data "\")))\n"))
+				(str variable))
 
 			(= type "expr")
 			(let [function (subs data 1 data-length)]
-				(str " (try " function 
-					" (catch Exception e \"Exception happened\"))\n"))
+				(str " (try " function " (catch Exception e e))\n"))
 
 			(= type "bloc")
 			(let 	[code 	(subs data 2 (dec data-length))
 					do-bloc 	(str " (do " code ")")]
-				(str " (try " do-bloc " (catch Exception e \"Exception happened\"))\n")))))
+				(str " (try " do-bloc " (catch Exception e e))\n")))))
 
 (defn get-def-str 
 	"return the string (def variable value)"
