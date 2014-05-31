@@ -38,8 +38,8 @@
 		(throw (Exception. "Sodahead Exception: key already exists."))
 		(let 	[new-ns 	(gensym "sodahead")
 				load-str 	(gen-ns-file text new-ns)
-				dummy 	(swap! ns-list assoc rkey new-ns)
-				dummy 	(load-string load-str)]
+				dummy 	(load-string load-str)
+				dummy 	(swap! ns-list assoc rkey new-ns)]
 			new-ns)))
 
 (defn render-text
