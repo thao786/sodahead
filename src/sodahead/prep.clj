@@ -47,7 +47,7 @@
 
 ;produce (try code (catch Exception e (str e "" code)))
 (defn wrap-exception [code]
-	(str " (try " code " (catch Exception e (str e " code ")))\n"))
+	(str " (try " code " (catch Exception e))\n"))
 
 (defn morph-into-code
 	"depends on the type of code block, wrap it in appropriate handler"
@@ -73,6 +73,21 @@
 			(let 	[code 	(subs data 2 (dec data-length))
 					do-bloc 	(str " (do " code ")")]
 				(wrap-exception do-bloc)))))
+
+(defn get-require-code
+	"get code as it is, don't wrap in try catch"
+	[require-block]
+	(let [type (require-block :type)
+		data (require-block :content)]
+		(cond
+			(= type "expr")
+			(subs data 1 (count data))
+
+			(= type "bloc")
+			(subs data 2 (dec (count data)))
+
+			:else
+			(throw (Exception. "Sodahead Exception: require code must be in a block or expression.")))))
 
 (defn get-def-str 
 	"return the string (def variable value)"
