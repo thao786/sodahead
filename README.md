@@ -4,7 +4,7 @@ Sodahead is a tiny front end engine for Clojure inspired by .NET Razor syntax. I
 
 
 <h3>Install</h3>
-Include  org.clojure/clojure "0.1.0" in your lein dependency.
+Include  ```org.clojure/clojure "0.1.0"``` in your lein dependency.
 
 
 <h3>Include file</h3>
@@ -21,18 +21,17 @@ There are 3 ways to execute code in Sodahead:
 		... <br>
 	} <br>
 
-	Ex:  <br>
-	%{  (def a 9)  (+ a 7)  } <br>
-	outputs 16
-
 2. <b>single expression:</b> %expression<br>
-	ex: %(+ 8 9) outputs 17
 
 3. <b>single variable:</b> %variable <br>
-	ex: %Math/PI outputs 3.14<br>
 
+Example:
+%{  (def a 9)  (+ a 7)  } <br>
+%(+ 8 9)
+%Math/PI
 
-Non trivial example:
+outputs
+
 
 
 Next coming feature: Template.
