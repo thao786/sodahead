@@ -1,8 +1,10 @@
 # sodahead
 
-3 ways to execute code in sodahead:
+Sodahead is a tiny front end engine for Clojure inspired by .NET Razor syntax. It lets you embed Clojure code in plain text (html, css, etc).
 
-1. <b>Block of code:</b><br>
+There are 3 ways to execute code in Sodahead:
+
+1. <b>Block of code:</b> a chunk of clojure expression wrapped in brackets %{}. Sodahead will execute the block and replace it with the result<br>
 	%{ <br>
 		expression 1 <br>
 		expression 2 <br>
