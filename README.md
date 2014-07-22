@@ -15,21 +15,25 @@ Include  ```org.clojure/clojure "0.1.0"``` in your lein dependency.
 There are 3 ways to execute code in Sodahead:
 
 1. <b>Block of code:</b> a chunk of clojure expression wrapped in brackets %{}.<br>
-	```%{ 
+	```
+	%{ 
 	-	expression 1 
 	-	expression 2 
 	-	... 
-	}```
+	}
+	```
 	<br>
 
-2. <b>single expression:</b> ```%expression```<br>
+2. <b>single expression:</b> `%expression`<br>
 
-3. <b>single variable:</b> ```%variable``` <br>
+3. <b>single variable:</b> `%variable` <br>
 
 Example:
-```%{  (def a 9)  (+ a 7)  } <br>
+```
+%{  (def a 9)  (+ a 7)  } <br>
 %(+ 8 9)
-%Math/PI```
+%Math/PI
+```
 
 outputs
 
