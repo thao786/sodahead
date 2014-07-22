@@ -16,10 +16,10 @@
 	} <br>
 	will give you 16
 
-2. single expression:
-	%expression
-	ex: %(+ 8 9)
+2. single expression:<br>
+	%expression<br>
+	ex: %(+ 8 9) will give you 17
 
-3. single variable:
-	%variable name
-	ex: %Math/PI
+3. single variable:<br>
+	%variable <br>
+	ex: %Math/PI will give you 3.14
