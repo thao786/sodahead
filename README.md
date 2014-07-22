@@ -1,6 +1,6 @@
 # sodahead
 
-Sodahead is a tiny front end template for Clojure inspired by .NET Razor. It lets you embed Clojure code in plain text (html tags, css, etc).<br>
+Sodahead is a tiny front end template library for Clojure inspired by .NET Razor. It lets you embed Clojure code in plain text.br>
 
 <h3>Install</h3>
 Add the following to your lein dependency:
@@ -37,7 +37,7 @@ It is assumed that variable name does not contain ^(){}[]@\~`',."<>. If it does,
 **Sodahead requires all the import to be done in the first block.** The first code block should not do anything except require/import needed libraries. If you don't need to import anything, leave it blank %{}.
 
 <h3>Include file</h3>
-First of all Sodahead looks for all %include blocks and recursively replaces them with concatenated file contents.
+First of all Sodahead looks for all **%include** blocks and recursively replaces them with concatenated file contents.
 ```
 %include {
 	"file1.html"
@@ -55,7 +55,7 @@ To render code embedded text, use **(sodahead.render/render filename {:param val
 (defroutes app-routes 
         (GET "/" [] (r/render "index.html" {:userID 798659 :mode 1})))
 ```
-Passed over parameters can be accessed as if they are defined locally (embedded in plain text). For example, in index.html:
+Passed over parameters can be accessed as if they were defined locally (embedded in plain text). For example, in index.html:
 ```
 <p>Your ID is %userID </p>
 ```
