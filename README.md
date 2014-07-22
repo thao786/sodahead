@@ -12,9 +12,9 @@ org.clojure/clojure "0.1.0"
 ```
 <div>
 %{
-	(ns example)
 	(require [sodahead.render :as r]  
 		[compojure.route :as route])
+	(import java.util.Date)
 }
 
 %{
