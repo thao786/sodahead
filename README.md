@@ -9,6 +9,13 @@
 		... <br>
 	} <br>
 
+	Ex:  <br>
+	%{ <br>
+		(def a 9) <br>
+		(+ a 7) <br>
+	} <br>
+	will give you 16
+
 2. single expression:
 	%expression
 	ex: %(+ 8 9)
