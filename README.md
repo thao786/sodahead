@@ -1,10 +1,10 @@
 # sodahead
 
-Sodahead is a tiny front end engine for Clojure inspired by .NET Razor syntax. It lets you embed Clojure code in plain text (html tags, css, etc), executes the code and replaces it with resulted output.
-
+Sodahead is a tiny front end engine for Clojure inspired by .NET Razor syntax. It lets you embed Clojure code in plain text (html tags, css, etc), executes the code and replaces it with resulted output.<br>
+Sodahead use the symbol % to signify the start of a code block. If you dont intend to write Clojure, add spaces after it.
 
 <h3>Install</h3>
-Include  ```org.clojure/clojure "0.1.0"``` in your lein dependency.
+Add `org.clojure/clojure "0.1.0"` in your lein dependency.
 
 
 <h3>Include file</h3>
@@ -24,9 +24,10 @@ There are 3 ways to execute code in Sodahead:
 	```
 	<br>
 
-2. <b>single expression:</b> `%expression`<br>
+2. <b>single expression:</b> `%(expression)`<br>
 
 3. <b>single variable:</b> `%variable` <br>
+search terminates until special symbols like <. Clojure is loose when it comes to variable naming. When in doubt use %{variable}
 
 Example:
 ```
@@ -39,4 +40,4 @@ outputs
 
 
 
-Next coming feature: Template.
+**Next coming feature:** Template.
