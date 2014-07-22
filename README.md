@@ -16,10 +16,8 @@
 	} <br>
 	will give you 16
 
-2. single expression:<br>
-	%expression<br>
+2. <b>single expression:</b> %expression<br>
 	ex: %(+ 8 9) will give you 17
 
-3. single variable:<br>
-	%variable <br>
+3. <b>single variable:</b> %variable <br>
 	ex: %Math/PI will give you 3.14
