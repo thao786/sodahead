@@ -12,14 +12,15 @@ Include  ```org.clojure/clojure "0.1.0"``` in your lein dependency.
 
 
 <h3>Embed code</h3>
->There are 3 ways to execute code in Sodahead:
+There are 3 ways to execute code in Sodahead:
 
 1. <b>Block of code:</b> a chunk of clojure expression wrapped in brackets %{}.<br>
 	```%{ 
-		expression 1 
-		expression 2 
-		... 
-	}``` <br>
+	-	expression 1 
+	-	expression 2 
+	-	... 
+	}```
+	<br>
 
 2. <b>single expression:</b> ```%expression```<br>
 
