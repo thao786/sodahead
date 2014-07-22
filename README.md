@@ -45,13 +45,13 @@ First of all Sodahead looks for all %include blocks and recursively replaces the
 ```
 
 <h3>Render </h3>
-To render code embedded text, use **(sodahead.render/render filename {:param value})**. This method first "cache" the file's final executable form and then renders the content. Ex:
+To render code embedded text, use **(sodahead.render/render filename {:param value})**. This method first "cache" the file's final executable form and then renders the content.  Ex:
 ```
 (require [sodahead.render :as r]  
 		[compojure.route :as route])
 
 (defroutes app-routes 
-        (GET "/" [] (r/render "HomePage.html" {:userID 798659})))
+        (GET "/" [] (r/render "HomePage.html" {:userID 798659 :mode 1})))
 ```
 Passed over parameters can be accessed as if they are defined locally (embedded in plain text). For example, in HomePage.html:
 ```
@@ -63,7 +63,7 @@ gives
 ```
 
 Other options (same parameters):
-**render-file** only renders file with no caching
+**render-file** only renders file with no caching<br>
 **render-text** renders text
 
 
