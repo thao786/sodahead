@@ -53,7 +53,8 @@ To render code embedded text, use **(sodahead.render/render filename {:param val
 (defroutes app-routes 
         (GET "/" [] (r/render "HomePage.html" {:userID 798659})))
 ```
-Passed over parameters can be accessed as if they are defined locally (embedded in plain text). For example, in HomePage.html: ```
+Passed over parameters can be accessed as if they are defined locally (embedded in plain text). For example, in HomePage.html:
+```
 <p>Your ID is %userID </p>
 ```
 gives
