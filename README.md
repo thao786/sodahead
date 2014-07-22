@@ -2,7 +2,7 @@
 
 Sodahead is a tiny front end engine for Clojure inspired by .NET Razor syntax. It lets you embed Clojure code in plain text (html tags, css, etc), executes the code and replaces it with resulted output.
 
-<h1>To include another file:</h1>
+<h3>To include another file:</h3>
 
 
 
