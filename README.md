@@ -1,8 +1,8 @@
 # sodahead
 
-3 kinds of clojure code access:
+3 ways to execute code in sodahead:
 
-1. block: 
+1. block: <br>
 	%{
 		expression 1
 		expression 2
