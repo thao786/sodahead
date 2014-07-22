@@ -2,7 +2,7 @@
 
 3 ways to execute code in sodahead:
 
-<b>1. Block of code:</b><br>
+1. <b>Block of code:</b><br>
 	%{ <br>
 		expression 1 <br>
 		expression 2 <br>
