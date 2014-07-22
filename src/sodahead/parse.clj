@@ -81,7 +81,7 @@
 			close-brac 	"}"] 
 		(loop 	[text 	original-text
 			 	res 	[]]
-			(if-let [token	(re-find #"%[\(\{a-zA-Z\_\-\!\$\%\&\*\?\|][^ \s\(\)\{\}\[\]\@\\\~\`\,\.\"\<\>]*"  ;"
+			(if-let [token	(re-find #"%[\(\{a-zA-Z\_\-\!\$\%\&\*\?\|][^ \s\(\)\{\}\[\]\@\\\~\`\,\.\"\<\>\']*"  ;"
 										text)]	
 				(let 	[token-begin 		(.indexOf text token)
 						trail-text 			(subs text 0 token-begin)
