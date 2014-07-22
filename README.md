@@ -17,9 +17,9 @@ There are 3 ways to execute code in Sodahead:
 1. <b>Block of code:</b> a chunk of clojure expression wrapped in brackets %{}.<br>
 	```
 	%{ 
-	-	expression 1 
-	-	expression 2 
-	-	... 
+		expression 1 
+		expression 2 
+		... 
 	}
 	```
 	<br>
