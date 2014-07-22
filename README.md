@@ -2,11 +2,12 @@
 
 3 ways to execute code in sodahead:
 
-1. block: <br>
-	%{
-		expression 1
-		expression 2
-	}
+<b>1. Block of code:</b><br>
+	%{ <br>
+		expression 1 <br>
+		expression 2 <br>
+		... <br>
+	} <br>
 
 2. single expression:
 	%expression
